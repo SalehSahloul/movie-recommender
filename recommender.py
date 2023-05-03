@@ -4,7 +4,7 @@ import numpy as np
 
 def get_movie_titles_and_ratings_df():
     # reading user_movie data frame
-    ratings_df = pd.read_csv('../../data/ratings.csv')
+    ratings_df = pd.read_csv('data/ratings.csv')
 
     # change it from long into wide format
     ratings_df = ratings_df.pivot(index='userId', columns='movieId', values='rating')
@@ -13,7 +13,7 @@ def get_movie_titles_and_ratings_df():
     ratings_df = ratings_df.dropna(thresh=100, axis=1)
 
     # reading movie data frame
-    movie_df = pd.read_csv('../../data/movies.csv')
+    movie_df = pd.read_csv('data/movies.csv')
 
     # get titles of movies to use them instead of the movie ids
     movie_titles = list()
