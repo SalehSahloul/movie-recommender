@@ -1,0 +1,21 @@
+body {
+    text-align: left;
+    background-color:whitesmoke;
+    font-family:'Courier New', Courier, monospace;
+	margin-left: 20px;
+}
+
+/* Changing the style by accessing the class attribute of tag . */
+
+.input1 {
+	max-width: 300px;
+}
+  
+.input2 {
+	max-width: 100px;
+}
+
+ul {
+	list-style-type: none;
+}
+  

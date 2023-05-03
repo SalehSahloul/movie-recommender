@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Movie Recommender</title>
+</head>
+<body>
+    <h1>Welcome to the movie recommender based on a trained NMF model</h1>
+    <br><br>
+    <form action="/results">
+        <div class="movie-input-container">
+            <label for="movie-select">Select a movie:</label>
+            <br>
+            <select class="input1" name="movie" id="movie-select">
+                {% for movie in movies %}
+                <option value="{{ movie }}">{{ movie }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <label for="rating-input">Enter your rating:</label>
+            <br>
+            <select class="input1" name="rating" id="rating-input">
+                <option value="0" selected>0</option>
+                {% for rating in range(1, 6) %}
+                <option value="{{ rating }}">{{ rating }}</option>
+                {% endfor %}
+            </select>
+            <button type="button" id="add-movie-button">+</button>
+        </div>
+        <br>
+        <div>
+            <p>Your rated movies:</p>
+            <ul id="movie-list"></ul>
+        </div>
+        <br>
+        <label for="n-input">Number of recommendations:</label>
+        <br>
+        <input class="input2" type="number" value="10" id="n-input" name="n" min="1" max="100">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        const movieSelect = document.querySelector("select[name='movie']");
+        const ratingInput = document.getElementById("rating-input");
+        const addMovieButton = document.getElementById("add-movie-button");
+        const movieList = document.getElementById("movie-list");
+
+        addMovieButton.addEventListener("click", () => {
+            const movieName = movieSelect.value;
+            const rating = ratingInput.value || 0;
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "-";
+            const listItem = document.createElement("li");
+            listItem.textContent = `${movieName}: ${rating}/5`;
+            deleteButton.addEventListener("click", () => {
+                movieList.removeChild(listItem);
+            });
+            listItem.insertBefore(deleteButton, listItem.firstChild);
+            movieList.appendChild(listItem);
+            ratingInput.value = "";
+        });
+    </script>
+</body>
+</html>
